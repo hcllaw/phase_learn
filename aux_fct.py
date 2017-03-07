@@ -1,4 +1,4 @@
-# Auxillary Code
+### Auxillary Functions ###
 from numpy import exp, shape, reshape, sqrt, median
 from numpy.random import permutation,randn
 from scipy.spatial.distance import squareform, pdist, cdist
@@ -6,6 +6,7 @@ import numpy as np
 import os
 from scipy.io import loadmat
 
+# Median Heuristic method for the RBF Kernel
 def get_sigma_median_heuristic(X, is_sparse = False):
     if is_sparse:
         X = X.todense()
@@ -17,6 +18,7 @@ def get_sigma_median_heuristic(X, is_sparse = False):
     sigma=median_dist/sqrt(2.)
     return sigma
 
+# Auxillary Dataset Loading 
 def load_data(path):
 	os.chdir(path)
 	mat = loadmat('MISR1.mat')

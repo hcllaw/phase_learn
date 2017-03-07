@@ -1,3 +1,4 @@
+### Phase Fourier Network for distrbutional regression ###
 import numpy as np
 import tensorflow as tf
 import kernel_layer

@@ -1,8 +1,10 @@
+### Tutorial for toy classification problem using the fourier neural network ###
 import numpy as np
 import aux_fct
 import fourier_nn
 from math import sqrt
 
+# Dataset Generation from two different random chisquare distribution.
 num_bags = 1000
 dim = 5
 df0=4
@@ -13,11 +15,11 @@ num1=np.count_nonzero(labels_a)
 X=np.zeros((num_bags,dim))
 X[df==df1,:] = np.random.chisquare(df=df1,size=(num1,dim))
 X[df==df0,:] = np.random.chisquare(df=df0,size=(num_bags-num1,dim))
-
 labels = np.zeros((num_bags, 2))
 labels[:,0] = np.array(1*(df==df0))
 labels[:,1] = np.array(1*(df==df1))
 
+# Tuning Parameters
 learning_rate = 0.3
 reg = 0.1
 n_freq = 60 # Number of frequencies to use
@@ -31,8 +33,10 @@ y_train = labels[:750]
 x_test = X[750:]
 y_test = labels[750:]
 
+# Initialisation 
 width_x = aux_fct.get_sigma_median_heuristic(x_train)
 init_sd = 1.0/width_x
 
+# Fourier neural network
 accuracy = fourier_nn.fourier_nn(x_train, y_train, x_test, y_test, n_freq, learning_rate, reg, batch_size, no_epochs, init_sd, n_cpu)
 print('accuracy: ' + str(accuracy))

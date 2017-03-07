@@ -1,3 +1,4 @@
+### Fourier Neural Network for Classification ###
 import numpy as np
 import tensorflow as tf
 import kernel_layer
