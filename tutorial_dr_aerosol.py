@@ -4,7 +4,7 @@ import aux_fct
 import phase_fourier_dr_nn
 from math import sqrt
 # State your path for the Aerosol Dataset MISR1
-path = '/homes/hlaw/Files/phase_discrepancies/MIR_datasets'
+path = 'your/data/path/here/Fourier-Phase-Neural-Network'
 # Load Dataset into features and labels
 misr_data_x, misr_data_y = aux_fct.load_data(path)
 
