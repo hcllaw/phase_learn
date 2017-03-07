@@ -36,7 +36,7 @@ def kernel_module(x, weights, n_hidden, bias = None, dr = False, rescale = True,
     if rescale:
             layer_1 = tf.scalar_mul( tf.sqrt(1.0/tf.to_float(n_hidden) ), layer_1 )
     return layer_1
-ß
+
 # Neural Network using the fourier or phase module followed by a batch normalisation layer and output layer.
 def kernel_nn(x, weights, n_hidden, epsilon, mean_all, var_all, bias = None, train = True, rescale = True, dr = False, norm = False):
     if bias:
