@@ -3,7 +3,7 @@ import tensorflow as tf
 import kernel_layer
 import math
 
-def phase_fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg, batch_size, no_epochs, init_sd, n_cpu):
+def fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg, batch_size, no_epochs, init_sd, n_cpu):
     decay = lr/no_epochs # Using a particular learning rate decay schedule
     shape = x_train.shape 
     assert len(shape) == 2

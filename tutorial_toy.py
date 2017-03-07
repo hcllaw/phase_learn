@@ -1,6 +1,6 @@
 import numpy as np
 import aux_fct
-import phase_fourier_nn
+import fourier_nn
 from math import sqrt
 
 num_bags = 1000
@@ -31,9 +31,8 @@ y_train = labels[:750]
 x_test = X[750:]
 y_test = labels[750:]
 
-width_x = aux_fct.get_sigma_median_heuristic(np.concatenate(x_train))
+width_x = aux_fct.get_sigma_median_heuristic(x_train)
 init_sd = 1.0/width_x
 
 accuracy = fourier_nn.fourier_nn(x_train, y_train, x_test, y_test, n_freq, learning_rate, reg, batch_size, no_epochs, init_sd, n_cpu)
-
-
+print('accuracy: ' + str(accuracy))

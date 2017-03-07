@@ -28,6 +28,6 @@ y_test = misr_data_y[640:]
 width_x = aux_fct.get_sigma_median_heuristic(np.concatenate(x_train))
 init_sd = 1.0/width_x
 
-accuracy = phase_fourier_nn.phase_fourier_dr_nn(x_train, y_train, x_test, y_test, n_freq, learning_rate, reg_1, reg_2, batch_size, no_epochs, version, init_sd, n_cpu)
+accuracy = phase_fourier_dr_nn.phase_fourier_nn(x_train, y_train, x_test, y_test, n_freq, learning_rate, reg_1, reg_2, batch_size, no_epochs, version, init_sd, n_cpu)
 
 print( 'RMSE accuracy: ' + str(sqrt(accuracy)) )
