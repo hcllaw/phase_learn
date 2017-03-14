@@ -22,14 +22,14 @@ def kernel_module(x, weights, n_hidden, bias = None, dr = False, rescale = True,
         layer_0 = tf.add(layer_0, bias)
     layer_sin = tf.sin(layer_0)
     layer_cos = tf.cos(layer_0)
-    layer_1 = tf.concat(x_rank - 1, [layer_sin, layer_cos])
+    layer_1 = tf.concat([layer_sin, layer_cos], x_rank - 1)
     if dr:
         layer_1 = tf.reduce_mean(layer_1, 1)
         if norm:
             mean_layer_sin = tf.reduce_mean(layer_sin, 1) 
             mean_layer_cos = tf.reduce_mean(layer_cos, 1)
             amplitude = tf.sqrt( tf.add( tf.square(mean_layer_cos), tf.square(mean_layer_sin) ) ) # Calculate amplitude
-            amplitude_layer = tf.concat(1, [amplitude, amplitude]) # amplitude layer
+            amplitude_layer = tf.concat([amplitude, amplitude], 1) # amplitude layer
             layer_1 = tf.div(layer_1, amplitude_layer) # Phase layer
         elif not dr and norm:
             raise ValueError('Normalisation for phase features available only for distribution regression')

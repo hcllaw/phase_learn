@@ -32,7 +32,7 @@ def fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg, batch_size, 
     output, mean_b, var_b = kernel_layer.kernel_nn(x, weights, n_hidden, epsilon, mean_batch, var_batch, bias = biases, train = training, rescale = True, dr = False, norm = False)
     # Define loss function and optimizer
     y_size = tf.cast( tf.shape(y)[0],'float32')
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(output, y)) + reg * tf.nn.l2_loss(weights['h1']) + reg * tf.nn.l2_loss(weights['out'])
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=output, labels=y)) + reg * tf.nn.l2_loss(weights['h1']) + reg * tf.nn.l2_loss(weights['out'])
     optimizer = tf.train.AdamOptimizer(learning_rate=lr_var).minimize(cost) # ADAM optimizer with particular learning rate
     # Initializing the variables
     init = tf.global_variables_initializer()
