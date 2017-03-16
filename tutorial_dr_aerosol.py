@@ -4,7 +4,7 @@ import aux_fct
 import phase_fourier_dr_nn
 from math import sqrt
 # State your path for the Aerosol Dataset MISR1
-path = 'your/data/path/here/Fourier-Phase-Neural-Network'
+path = '/Users/Leon1/Desktop/Fourier-Phase-Neural-Network'
 # Load Dataset into features and labels
 misr_data_x, misr_data_y = aux_fct.load_data(path)
 
@@ -13,9 +13,9 @@ learning_rate = 0.3
 reg_1 = 10.0  # L2 Regularisation for frequencies layer 
 reg_2 = 0.001 # L2 Regularisation for output layer
 n_freq = 60 # Number of frequencies to use
-batch_size = 10
-no_epochs = 120
-version = 'Phase' # To perform fourier neural network, use 'Fourier'
+batch_size = 20
+no_epochs = 100
+version = 'Fourier' # To perform fourier neural network, use 'Fourier'
 n_cpu = 1 # Number of CPUs available
 
 # Construct Train and Test Set

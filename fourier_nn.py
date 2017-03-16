@@ -47,7 +47,7 @@ def fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg, batch_size, 
         for epoch in range(no_epochs):
             lr = lr * 1/(1 + decay * epoch)
             avg_cost = 0.0
-            total_batch = int(num_bags/batch_size)
+            total_batch = int(float(num_bags)/batch_size)
             # Loop over all batches
             permu_list = np.random.choice(num_bags, num_bags)
             for i in range(total_batch):
