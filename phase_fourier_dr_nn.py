@@ -80,6 +80,6 @@ def phase_fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg_1, reg_
             if (epoch + 1) % display_step == 0:
                 print("Epoch:", '%04d' % (epoch +1), "cost=", \
                 "{:.9}".format(avg_cost))
-        test_accuracy = tf.div(2 * tf.nn.l2_loss(output - y), y_size)
+        test_accuracy = tf.reduce_mean(tf.square(output - y))
         result = test_accuracy.eval(feed_dict={x: x_test, y: y_test, training: False, mean_batch: mean_b_avg, var_batch: var_b_avg})
     return result
