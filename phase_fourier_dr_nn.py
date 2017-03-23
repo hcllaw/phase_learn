@@ -39,7 +39,7 @@ def phase_fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg_1, reg_
     # Define loss function and optimizer
     y_size = tf.cast( tf.shape(y)[0],'float32')
     cost = tf.div( 2 * tf.nn.l2_loss(output - y), y_size) + reg_1 * tf.nn.l2_loss(weights['h1']) + reg_2 * tf.nn.l2_loss(weights['out'])
-    optimizer = tf.train.AdamOptimizer(learning_rate=0.3).minimize(cost) # ADAM optimizer with particular learning rate
+    optimizer = tf.train.AdamOptimizer(learning_rate=lr_var).minimize(cost) # ADAM optimizer with particular learning rate
     #optimizer = tf.train.GradientDescentOptimizer(lr_var).minimize(cost)
     # Initializing the variables
     init = tf.global_variables_initializer()
