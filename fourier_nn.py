@@ -75,5 +75,5 @@ def fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg, batch_size, 
                 "{:.9}".format(avg_cost))
         correct_prediction_t = tf.equal(tf.argmax(output, 1), tf.argmax(y, 1))
         test_accuracy = tf.reduce_mean(tf.cast(correct_prediction_t, "float"))
-        result = test_accuracy.eval(feed_dict={x: x_test, y: y_test, training: False, mean_batch: mean_b_avg, var_batch: var_b_avg})
+        result = test_accuracy.eval(feed_dict={x: x_test, y: y_test, training: True, mean_batch: mean_b_avg, var_batch: var_b_avg})
     return result

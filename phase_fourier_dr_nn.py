@@ -38,16 +38,16 @@ def phase_fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg_1, reg_
         raise Exception('Error in version name, Either Fourier or Phase available')
     # Define loss function and optimizer
     y_size = tf.cast( tf.shape(y)[0],'float32')
-    cost = tf.div( 2 * tf.nn.l2_loss(output - y), y_size) + reg_1 * tf.nn.l2_loss(weights['h1']) + reg_2 * tf.nn.l2_loss(weights['out'])
+    cost = tf.reduce_mean(tf.square(output - y)) + reg_1 * tf.nn.l2_loss(weights['h1']) + reg_2 * tf.nn.l2_loss(weights['out'])
     optimizer = tf.train.AdamOptimizer(learning_rate=lr_var).minimize(cost) # ADAM optimizer with particular learning rate
-    #optimizer = tf.train.GradientDescentOptimizer(lr_var).minimize(cost)
+    #optimizer = tf.train.RMSPropOptimizer(lr).minimize(cost)
     # Initializing the variables
     init = tf.global_variables_initializer()
     mean_avg = np.zeros(n_hidden * 2)
     var_avg = np.zeros(n_hidden * 2)
     # Parallisation
     config = tf.ConfigProto(intra_op_parallelism_threads=n_cpu, inter_op_parallelism_threads=n_cpu)
-    display_step = 10
+    display_step = 5
     with tf.Session(config = config) as sess:
         sess.run(init)
         # Training cycle
@@ -80,6 +80,14 @@ def phase_fourier_nn(x_train, y_train, x_test, y_test, n_hidden, lr, reg_1, reg_
             if (epoch + 1) % display_step == 0:
                 print("Epoch:", '%04d' % (epoch +1), "cost=", \
                 "{:.9}".format(avg_cost))
+                # Can print test set accuracy
+                #print(math.sqrt(tf.reduce_mean(tf.square(output - y)).eval(feed_dict={x: x_test,
+                #                                                                      y: y_test,
+                #                                                                      lr_var: lr,
+                #                                                                      training: True,
+                #                                                                      mean_batch: mean_avg,  
+                #                                                                      var_batch: var_avg })))
         test_accuracy = tf.reduce_mean(tf.square(output - y))
-        result = test_accuracy.eval(feed_dict={x: x_test, y: y_test, training: False, mean_batch: mean_b_avg, var_batch: var_b_avg})
+        # Use training = True here since we have many test data, so get accurate mean and var for batch normalisation
+        result = test_accuracy.eval(feed_dict={x: x_test, y: y_test, training: True, mean_batch: mean_b_avg, var_batch: var_b_avg})
     return result
