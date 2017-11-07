@@ -30,7 +30,7 @@ def median_sqdist(feats, n_sub=1000):
     return np.median(D2[np.triu_indices_from(D2, k=1)], overwrite_input=True)
 
 # Auxillary Dataset Loading 
-def load_data(path, random = False, seed = 30):
+def load_data(path, random = False, seed = 29):
 	os.chdir(path)
 	mat = loadmat('MISR1.mat')
 	array = mat['MISR1']
